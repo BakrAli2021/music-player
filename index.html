@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="music">
+        <h2 class="title">music name</h2>
+        <div class="player">
+            <audio src=""> </audio>
+                <div class="btns">
+                    <span class="prev"><ion-icon name="play-back-outline"></ion-icon></span>
+                    <span class="play"><ion-icon name="play-outline"></ion-icon></span>
+                    <span class="next"><ion-icon name="play-forward-outline"></ion-icon></span>
+                </div>
+        </div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+        let title =document.querySelector('.title'),
+        prev=document.querySelector('.prev'),
+        play=document.querySelector('.play'),
+        next=document.querySelector('.next'),
+        audio=document.querySelector('audio');
+let songlist=[
+    {
+        path:"1.mp3",
+        name:"after all"
+    }, 
+    {
+        path:"2.mp3",
+        name:"songs"
+    }, 
+    {
+        path:"3.mp3",
+        name:"day to day"
+    }
+    ];
+     let sogn_play=false;
+     function play_song(){
+        sogn_play=true;
+        audio.play();
+        play.classList.add('active');
+        play.innerHTML='<ion-icon name="pause-outline"></ion-icon>';
+     }
+     function puase_song(){
+        sogn_play=false;
+        audio.pause();
+         play.classList.remove('active');
+         play.innerHTML='<ion-icon name="play-outline"></ion-icon>';
+     }
+     play.addEventListener('click',()=> (sogn_play)?puase_song():play_song());
+     function loadsongs(songlist){
+         title.textContent = songlist.name;
+         audio.src = songlist.path;
+     }
+     let i=0;
+     loadsongs(songlist[i]);
+        function prevsong(){
+            i--;
+         if(i<0){
+             i=songlist.length -1; 
+         }
+         loadsongs(songlist[i]);
+         play_song();
+           
+        }
+     prev.addEventListener('click',prevsong);
+     function nextsong(){
+        i++;
+         if(i>songlist.length-1){
+             i=0;
+         }
+         loadsongs(songlist[i]);
+         play_song();
+            
+     }
+     next.addEventListener('click',nextsong);
+    </script>
+</body>
+</html>
